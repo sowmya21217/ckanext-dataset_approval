@@ -1,0 +1,11 @@
+<h3>Dataset Approval</h3>
+<p>Status: {{ dataset.status }}</p>
+
+{% if dataset.status == 'pending' %}
+    <form action="{{ h.url_for('dataset_approval/approve', dataset_id=dataset.id) }}" method="POST">
+        <input type="submit" value="Approve Dataset">
+    </form>
+    <form action="{{ h.url_for('dataset_approval/reject', dataset_id=dataset.id) }}" method="POST">
+        <input type="submit" value="Reject Dataset">
+    </form>
+{% endif %}

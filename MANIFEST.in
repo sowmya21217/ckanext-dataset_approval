@@ -1,0 +1,16 @@
+# Include the Python files in the ckanext directory
+recursive-include ckanext/dataset_approval *.py
+
+# Include any templates
+recursive-include ckanext/dataset_approval/templates *.html
+
+# Include any static files (e.g., CSS, JS, images) if applicable
+# recursive-include ckanext/dataset_approval/static *
+
+# If you have any additional configuration or data files, include them too
+# include ckanext/dataset_approval/config/*.ini
+# include ckanext/dataset_approval/data/*
+
+# Include the README file and license if needed
+include README.md
+include LICENSE
