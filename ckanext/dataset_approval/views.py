@@ -1,20 +1,23 @@
-from ckan.lib.base import BaseController, c, render
-from ckan.model import Dataset
+# ckanext/dataset_approval/views.py
+import ckan.logic as logic
+from ckan.lib.base import c, render
+from ckanext.dataset_approval.logic import approve_dataset, reject_dataset
 
-class DatasetApprovalController(BaseController):
-    def approval_status(self, dataset_id):
-        dataset = Dataset.get(dataset_id)
-        c.dataset = dataset
-        return render('dataset_approval/approval_status.html')
+def dataset_approval_view(dataset_id):
+    """Display the dataset details along with approval/rejection options."""
+    dataset = logic.get_action('package_show')(context={'user': 'admin'}, data_dict={'id': dataset_id})
+    
+    return render('dataset_approval/dataset_approval.html', {
+        'dataset_name': dataset['name'],
+        'dataset_status': dataset['status'],
+        'user': dataset['author']
+    })
 
-    def approve(self, dataset_id):
-        # Update dataset status to 'approved'
+def dataset_approve_or_reject(dataset_id, action):
+    """Approve or reject the dataset based on the admin action."""
+    if action == 'approve':
         approve_dataset(dataset_id)
-        return redirect_to_action('view', dataset_id=dataset_id)
+    elif action == 'reject':
+        reject_dataset(dataset_id)
 
-    def reject(self, dataset_id):
-        # Update dataset status to 'rejected'
-        dataset = Dataset.get(dataset_id)
-        dataset.status = 'rejected'
-        Session.commit()
-        return redirect_to_action('view', dataset_id=dataset_id)
+    return render('dataset_approval/dataset_approval.html', {'status': 'success'})

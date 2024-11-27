@@ -5,10 +5,11 @@ setup(
     version='0.1',
     description="CKAN Extension for dataset approval/rejection.",
     long_description="This extension allows for the approval/rejection of datasets before they are visible.",
-    author="Your Name",
-    author_email="your.email@example.com",
+    author="Sowmya",
+    author_email="k.l.sowmya219@gmail.com",
     license="AGPL",
     packages=find_packages(),
+    namespace_packages=['ckanext'],
     include_package_data=True,
     install_requires=[
         'CKAN>=2.9',  # CKAN version

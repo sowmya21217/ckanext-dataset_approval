@@ -1,11 +1,15 @@
-<h3>Dataset Approval</h3>
-<p>Status: {{ dataset.status }}</p>
+<!-- ckanext/dataset_approval/templates/dataset_approval.html -->
+<div>
+    <h3>Dataset: {{ dataset_name }}</h3>
+    <p>Status: {{ dataset_status }}</p>
+    <p>Submitted by: {{ user }}</p>
 
-{% if dataset.status == 'pending' %}
-    <form action="{{ h.url_for('dataset_approval/approve', dataset_id=dataset.id) }}" method="POST">
-        <input type="submit" value="Approve Dataset">
-    </form>
-    <form action="{{ h.url_for('dataset_approval/reject', dataset_id=dataset.id) }}" method="POST">
-        <input type="submit" value="Reject Dataset">
-    </form>
-{% endif %}
+    {% if dataset_status == 'pending' %}
+        <form action="{{ url_for('dataset_approve_or_reject', action='approve') }}" method="POST">
+            <button type="submit">Approve</button>
+        </form>
+        <form action="{{ url_for('dataset_approve_or_reject', action='reject') }}" method="POST">
+            <button type="submit">Reject</button>
+        </form>
+    {% endif %}
+</div>
